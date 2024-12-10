@@ -3,16 +3,12 @@
  */
 package com.social.controladores;
 
-import java.util.LinkedList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.social.entidades.Publicacion;
@@ -31,35 +27,32 @@ import com.social.servicios.UsuarioService;
  */
 @Controller
 public class PanelController {
-	
-	@Autowired
 	private UsuarioService usuarioService;
-	@Autowired
 	private PublicacionService postService;
+
+	@Autowired
+	public PanelController(UsuarioService usuarioService, PublicacionService postService) {
+		this.usuarioService = usuarioService;
+		this.postService = postService;
+	}
 	
-	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
+	@GetMapping(value = { "/" })
 	public String home(Model model,Pageable pageable,@RequestParam(value = "", required=false) String searchText) {
-		
-		Page<Publicacion> publicaciones = new PageImpl<Publicacion>(new LinkedList<Publicacion>());
-		
-		if (searchText != null && !searchText.isEmpty()) 
-		{
+		Page<Publicacion> publicaciones;
+		if (searchText != null && !searchText.isEmpty()) {
 			publicaciones = postService.buscarPostPorTituloYContenido(pageable, searchText);
-			
-		} else 
-		{
+		}
+		else {
 			publicaciones = postService.getPublicacionesAmigos(pageable,usuarioService.getUsuarioActivo());
 		}
-		
 		model.addAttribute("usuarioActivo", usuarioService.getUsuarioActivo());
 		model.addAttribute("listPost",publicaciones.getContent());
 		model.addAttribute("page", publicaciones);
 		return "/panel";
 	}
 	
-	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	@GetMapping(value = "/error")
 	public String loginError(Model model) {
 		return "/error";
 	}
-
 }
