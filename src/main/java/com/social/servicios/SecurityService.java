@@ -24,13 +24,17 @@ import org.springframework.stereotype.Service;;
  */
 @Service
 public class SecurityService {
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    @Autowired
+    private AuthenticationManager authenticationManager;
     private UserDetailsService userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
+    @Autowired
+    public SecurityService(AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+    }
+
 
     public String findLoggedInDni() {
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
