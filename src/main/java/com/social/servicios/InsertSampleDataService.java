@@ -16,12 +16,14 @@ import com.social.entidades.Usuario;
 @Service
 public class InsertSampleDataService {
 
-	@Autowired
 	private UsuarioService usuariosService;
-	
-	@Autowired
-	private RolesService rolesService;
 
+	private RolesService rolesService;
+	@Autowired
+	public InsertSampleDataService(UsuarioService usuariosService, RolesService rolesService) {
+		this.usuariosService = usuariosService;
+		this.rolesService = rolesService;
+	}
 	@PostConstruct
 	public void init() 
 	{
