@@ -3,7 +3,7 @@ package com.social.servicios;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.Arrays;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,20 +76,18 @@ public class InsertSampleDataService {
 						null,new HashSet<Comentario>(),new HashSet<Usuario>()));
 		
 		usuario2.setPost(post2);
-		
-		usuario3.setPost(new HashSet<Publicacion>() {
-			{
-				add(new Publicacion(usuario3,new Date(),"Publicacion de prueba",
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
-								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" + 
-								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" + 
-								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" + 
-								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
-								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
+
+		usuario3.setPost(new HashSet<>(Arrays.asList(
+				new Publicacion(usuario3, new Date(), "Publicacion de prueba",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" +
+								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" +
+								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" +
+								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" +
+								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" +
+								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" +
 								"officia deserunt mollit anim id est laborum.",
-								null,new HashSet<Comentario>(),new HashSet<Usuario>()));
-			}
-		});
+						null, new HashSet<>(), new HashSet<>())
+		)));
 		
 		
 		usuario1.setPost(new HashSet<Publicacion>() {
