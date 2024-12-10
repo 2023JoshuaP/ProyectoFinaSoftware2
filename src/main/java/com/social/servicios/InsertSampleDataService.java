@@ -88,35 +88,31 @@ public class InsertSampleDataService {
 								"officia deserunt mollit anim id est laborum.",
 						null, new HashSet<>(), new HashSet<>())
 		)));
-		
-		
-		usuario1.setPost(new HashSet<Publicacion>() {
-			{
-				add(new Publicacion(usuario1,new Date(),"Hoy no quiero programar",
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
-								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" + 
-								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" + 
-								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" + 
-								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
-								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
+
+
+		usuario1.setPost(new HashSet<>(Arrays.asList(
+				new Publicacion(usuario1, new Date(), "Hoy no quiero programar",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" +
+								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" +
+								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" +
+								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" +
+								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" +
+								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" +
 								"officia deserunt mollit anim id est laborum.",
-								null,new HashSet<Comentario>(),new HashSet<Usuario>()));
-			}
-		});
-		
-		usuario4.setPost(new HashSet<Publicacion>() {
-			{
-				add(new Publicacion(usuario4,new Date(),"Drop tables",
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
-								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" + 
-								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" + 
-								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" + 
-								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
-								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
+						null, new HashSet<>(), new HashSet<>())
+		)));
+
+		usuario4.setPost(new HashSet<>(Arrays.asList(
+				new Publicacion(usuario4, new Date(), "Drop tables",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" +
+								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" +
+								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" +
+								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" +
+								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" +
+								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" +
 								"officia deserunt mollit anim id est laborum.",
-								null,new HashSet<Comentario>(),new HashSet<Usuario>()));
-			}
-		});
+						null, new HashSet<>(), new HashSet<>())
+		)));
 		
 		usuario1.setFoto_desc("https://ih0.redbubble.net/cover.104630.2400x600.jpg");
 		
