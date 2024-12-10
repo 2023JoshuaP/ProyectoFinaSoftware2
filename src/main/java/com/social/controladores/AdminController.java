@@ -36,32 +36,31 @@ import com.social.servicios.UsuarioService;
  */
 @Controller
 public class AdminController {
-
-	@Autowired 
 	private UsuarioService usersService;
-	@Autowired
 	private RolesService rolesService;
-	@Autowired
 	private SecurityService securityService;
+
+	@Autowired
+	public AdminController(UsuarioService usersService, RolesService rolesService, SecurityService securityService) {
+		this.usersService = usersService;
+		this.rolesService = rolesService;
+		this.securityService = securityService;
+	}
 	
 	@RequestMapping("/admin/list")
 	public String getList(Model model, Pageable pageable, @RequestParam(value = "", required=false) String searchText)
-	{	
-		Page<Usuario> usuarios = new PageImpl<Usuario>(new LinkedList<Usuario>());
+	{
 		Usuario usuarioActivo = usersService.getUsuarioActivo();
-		List<Usuario> adminUsers = new ArrayList<Usuario>();
+		List<Usuario> adminUsers;
 		
-		if (searchText != null && !searchText.isEmpty()) 
-		{
-			adminUsers = usersService
-				.buscarUsuariosPorNombreOEmail(pageable, searchText).getContent();
-			
-		} else 
-		{
+		if (searchText != null && !searchText.isEmpty()) {
+			adminUsers = usersService.buscarUsuariosPorNombreOEmail(pageable, searchText).getContent();
+		}
+		else {
 			adminUsers = usersService.getUsuarios(pageable).getContent();
 		}
 		adminUsers = adminUsers.stream().filter(x -> x.getId() != usuarioActivo.getId()).collect(Collectors.toList());
-		usuarios = new PageImpl<Usuario>(adminUsers);
+		Page<Usuario> usuarios = new PageImpl<>(adminUsers);
 		model.addAttribute("usuarioActivo", usuarioActivo);
 		model.addAttribute("userList", usuarios.getContent());
 		model.addAttribute("page", usuarios);
