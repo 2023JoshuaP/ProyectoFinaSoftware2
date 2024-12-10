@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.social.entidades.Comentario;
 import com.social.entidades.Publicacion;
 import com.social.entidades.Usuario;
 
@@ -46,7 +45,7 @@ public class InsertSampleDataService {
 		usuario6.setPassword("1234567");
 		usuario6.setRole(rolesService.getRoles()[1]);
 		
-		Set<Publicacion> post2 = new HashSet<Publicacion>();
+		Set<Publicacion> post2 = new HashSet<>();
 		post2.add(new Publicacion(usuario2,new Date(),"El sol brilla mucho",
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
 						"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" + 
@@ -55,7 +54,7 @@ public class InsertSampleDataService {
 						"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
 						"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
 						"officia deserunt mollit anim id est laborum.",
-						null,new HashSet<Comentario>(),new HashSet<Usuario>()));
+				null, new HashSet<>(), new HashSet<>()));
 		
 		post2.add(new Publicacion(usuario2,new Date(),"Nos merecemos un 10",
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
@@ -65,7 +64,7 @@ public class InsertSampleDataService {
 						"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
 						"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
 						"officia deserunt mollit anim id est laborum.",
-						null,new HashSet<Comentario>(),new HashSet<Usuario>()));
+				null, new HashSet<>(), new HashSet<>()));
 		
 		post2.add(new Publicacion(usuario2,new Date(),"Usando bootstrap",
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
@@ -75,7 +74,7 @@ public class InsertSampleDataService {
 						"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
 						"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
 						"officia deserunt mollit anim id est laborum.",
-						null,new HashSet<Comentario>(),new HashSet<Usuario>()));
+				null, new HashSet<>(), new HashSet<>()));
 		
 		usuario2.setPost(post2);
 
