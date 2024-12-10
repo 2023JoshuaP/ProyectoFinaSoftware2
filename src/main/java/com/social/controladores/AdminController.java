@@ -3,8 +3,6 @@
  */
 package com.social.controladores;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,11 +12,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.social.entidades.Publicacion;
 import com.social.entidades.Usuario;
@@ -59,7 +53,7 @@ public class AdminController {
 		else {
 			adminUsers = usersService.getUsuarios(pageable).getContent();
 		}
-		adminUsers = adminUsers.stream().filter(x -> x.getId() != usuarioActivo.getId()).collect(Collectors.toList());
+		adminUsers = adminUsers.stream().filter(x -> x.getId().equals(usuarioActivo.getId())).collect(Collectors.toList());
 		Page<Usuario> usuarios = new PageImpl<>(adminUsers);
 		model.addAttribute("usuarioActivo", usuarioActivo);
 		model.addAttribute("userList", usuarios.getContent());
@@ -76,12 +70,12 @@ public class AdminController {
 		return "redirect:/admin/list";
 	}
 	
-	@RequestMapping(value = "/admin/login", method = RequestMethod.GET)
+	@GetMapping(value = "/admin/login")
 	public String login(Model model) {
 		return "/admin/login";
 	}
 	
-	@RequestMapping(value = "/admin/login", method = RequestMethod.POST)
+	@PostMapping(value = "/admin/login")
 	public String login(Model model,@ModelAttribute Usuario u) {
 		String username = u.getUsername();
 		String passwd = u.getPassword();
@@ -91,7 +85,4 @@ public class AdminController {
 		securityService.autoLogin(username, passwd);
 		return "redirect:/admin/list";
 	}
-
-
-
 }
