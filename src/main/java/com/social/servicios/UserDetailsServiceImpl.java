@@ -29,20 +29,21 @@ import com.social.repositorios.UsuariosRepository;
  */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	@Autowired
-	private UsuariosRepository usuariosRepository;
 
+	private UsuariosRepository usuariosRepository;
+	@Autowired
+	public UserDetailsServiceImpl(UsuariosRepository usuariosRepository) {
+		this.usuariosRepository = usuariosRepository;
+	}
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		Usuario user = usuariosRepository.findByUsername(username);
-		//System.out.println(user);
+
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
 
-		User u = new User(user.getUsername(), user.getPassword(),
-				grantedAuthorities);
-		return u;
+		return new User(user.getUsername(), user.getPassword(), grantedAuthorities);
 		
 	}
 }
