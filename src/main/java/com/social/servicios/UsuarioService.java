@@ -4,7 +4,7 @@
 package com.social.servicios;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -76,10 +75,8 @@ public class UsuarioService {
 	}
 	
 	public Usuario getUsuarioActivo() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String username = auth.getName();
-		Usuario activeUser = getUserByUsername(username);
-		return activeUser;
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		return getUserByUsername(username);
 	}
 
 	public Usuario getUserByUsername(String username) {
@@ -91,8 +88,7 @@ public class UsuarioService {
 	}
 
 	public Page<Usuario> getUsuarios(Pageable pageable){
-		Page<Usuario> usuarios = usuariosRepository.findAll(pageable);
-		return usuarios;
+		return usuariosRepository.findAll(pageable);
 	}
 	
 	public Page<Usuario> getUsuariosAmigos(Pageable pageable,Usuario u){
@@ -104,7 +100,7 @@ public class UsuarioService {
 	
 	public Page<Usuario> buscarUsuariosPorNombreOEmail(Pageable pageable, String searchText)
 	{
-		Page<Usuario> usuarios = new PageImpl<>(new LinkedList<>());
+		Page<Usuario> usuarios;
 		
 		searchText = "%"+searchText+"%";
 		
