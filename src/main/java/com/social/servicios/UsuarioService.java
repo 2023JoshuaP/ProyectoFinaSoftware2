@@ -35,15 +35,16 @@ import com.social.repositorios.UsuariosRepository;
 @Service
 public class UsuarioService {
 
-	@Autowired
 	private UsuariosRepository usuariosRepository;
-	
-	@Autowired
 	private PeticionAmistadRepository amistadRepository;
-
-	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+	@Autowired
+	public UsuarioService(UsuariosRepository usuariosRepository, PeticionAmistadRepository amistadRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+		this.usuariosRepository = usuariosRepository;
+		this.amistadRepository = amistadRepository;
+		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+	}
 	public List<Usuario> getUsuarios() {
 		List<Usuario> usuarios = new ArrayList<>();
 		usuariosRepository.findAll().forEach(usuarios::add);
