@@ -45,7 +45,7 @@ public class UsuarioService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	public List<Usuario> getUsuarios() {
-		List<Usuario> usuarios = new ArrayList<Usuario>();
+		List<Usuario> usuarios = new ArrayList<>();
 		usuariosRepository.findAll().forEach(usuarios::add);
 		return usuarios;
 	}
@@ -97,13 +97,13 @@ public class UsuarioService {
 	public Page<Usuario> getUsuariosAmigos(Pageable pageable,Usuario u){
 		Page<Usuario> usuarios;
 		List<Usuario> amigos = u.getAmigos().stream().collect(Collectors.toList());
-		usuarios = new PageImpl<Usuario>(amigos);
+		usuarios = new PageImpl<>(amigos);
 		return usuarios;
 	}
 	
 	public Page<Usuario> buscarUsuariosPorNombreOEmail(Pageable pageable, String searchText)
 	{
-		Page<Usuario> usuarios = new PageImpl<Usuario>(new LinkedList<Usuario>());
+		Page<Usuario> usuarios = new PageImpl<>(new LinkedList<>());
 		
 		searchText = "%"+searchText+"%";
 		
@@ -127,7 +127,7 @@ public class UsuarioService {
 											} )
 											.collect(Collectors.toList());
 	
-		usuarios = new PageImpl<Usuario>( amigos );
+		usuarios = new PageImpl<>( amigos );
 		
 		return usuarios;
 	}
