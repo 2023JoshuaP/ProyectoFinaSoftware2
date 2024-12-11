@@ -127,18 +127,19 @@ public class UsuarioService {
 	{
 		amistadRepository.save( new Amistad( u1.getId(), u2.getId()) );
 	}
-	
-	
+
+
 	public void aceptarPeticionAmistad(Usuario u1, Usuario u2)
 	{
 		amistadRepository.delete(u2.getId(), u1.getId()); // el usuario 2 acepta la petición del 1
-		
-		if (amistadRepository.findPeticiones( u1.getId(), u2.getId() ).size() != 0)
+
+		if (!amistadRepository.findPeticiones( u1.getId(), u2.getId()).isEmpty())
 			amistadRepository.delete( u1.getId(), u2.getId() );
-		
+
 		modificarAmistadUsuarios( u1, u2 );
 	}
-	
+
+
 	private void modificarAmistadUsuarios( Usuario u1, Usuario u2 )
 	{
 		u1.addAmigo( u2 );
@@ -146,13 +147,13 @@ public class UsuarioService {
 		updateUsuario(u1);
 		updateUsuario(u2);
 	}
-	
+
 	public void rechazarPeticionAmistad(Usuario u1, Usuario u2)
 	{
 		amistadRepository.delete(u2.getId(), u1.getId());
-		
-		if (amistadRepository.findPeticiones( u1.getId(), u2.getId() ).size() != 0)
-			amistadRepository.delete( u1.getId(), u2.getId() );
+
+		if (!amistadRepository.findPeticiones(u1.getId(), u2.getId()).isEmpty())
+			amistadRepository.delete(u1.getId(), u2.getId());
 	}
 	
 	
