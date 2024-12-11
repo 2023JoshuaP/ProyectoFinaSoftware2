@@ -8,9 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import com.social.entidades.Usuario;
 import com.social.servicios.SecurityService;
@@ -27,24 +25,24 @@ import com.social.validadores.RegistroValidator;
  */
 @Controller
 public class LoginController {
-
-	@Autowired
 	private UsuarioService usuarioService;
-
-	@Autowired
 	private SecurityService securityService;
-	
-	@Autowired
 	private RegistroValidator registroValidator;
 
+	@Autowired
+	public LoginController(UsuarioService usuarioService, SecurityService securityService, RegistroValidator registroValidator) {
+		this.usuarioService = usuarioService;
+		this.securityService = securityService;
+		this.registroValidator = registroValidator;
+	}
 	
-	@RequestMapping(value = "/registro", method = RequestMethod.GET)
+	@GetMapping(value = "/registro")
 	public String registro(Model model) {
 		model.addAttribute("usuario", new Usuario());
 		return "login/registro";
 	}
 	
-	@RequestMapping(value = "/registro", method = RequestMethod.POST)
+	@PostMapping(value = "/registro")
 	public String registro(@ModelAttribute @Validated Usuario usuario,BindingResult result,Model model) {
 		registroValidator.validate(usuario, result);
 		if(result.hasErrors()) {
@@ -56,13 +54,12 @@ public class LoginController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@GetMapping(value = "/login")
 	public String login(Model model) {
 		return "/login/login";
 	}
 
-
-	@RequestMapping(value = "/login/error", method = RequestMethod.GET)
+	@GetMapping(value = "/login/error")
 	public String loginError(Model model) {
 		return "/login/error";
 	}

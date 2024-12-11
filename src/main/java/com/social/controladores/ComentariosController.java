@@ -10,10 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import com.social.entidades.Comentario;
 import com.social.entidades.Publicacion;
@@ -32,15 +29,18 @@ import com.social.servicios.UsuarioService;
  */
 @Controller
 public class ComentariosController {
-
-	@Autowired
 	private PublicacionService postService;
-	@Autowired
 	private UsuarioService userService;
-	@Autowired
 	private ComentarioService comService;
 
-	@RequestMapping(value="/post/comentarios/{id}", method = RequestMethod.GET)
+	@Autowired
+	public ComentariosController(PublicacionService postService, UsuarioService userService, ComentarioService comService) {
+		this.postService = postService;
+		this.userService = userService;
+		this.comService = comService;
+	}
+
+	@GetMapping(value="/post/comentarios/{id}")
 	public String listComentariosPost(Model modelo,@PathVariable Long id,Pageable pageable) {
 		Publicacion post = postService.getPublicacion(id);
 		Page<Comentario> comentarios = comService.findAllByPost(pageable, id);
@@ -52,7 +52,7 @@ public class ComentariosController {
 		return "post/comentarios";
 	}
 	
-	@RequestMapping(value="/post/comentario/add/{id}",  method=RequestMethod.POST)
+	@PostMapping(value="/post/comentario/add/{id}")
 	public String addComentario(Model modelo,@PathVariable Long id,@ModelAttribute Comentario comentario,Pageable pageable) {
 		Publicacion post = postService.getPublicacion(id);
 		Comentario com = new Comentario();
