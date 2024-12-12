@@ -11,7 +11,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;;
+import org.springframework.stereotype.Service;
+
 
 /**
  * <h1>SecurityService</h1>
@@ -24,13 +25,17 @@ import org.springframework.stereotype.Service;;
  */
 @Service
 public class SecurityService {
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
-    @Autowired
+    private AuthenticationManager authenticationManager;
     private UserDetailsService userDetailsService;
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityService.class);
+    @Autowired
+    public SecurityService(AuthenticationManager authenticationManager, UserDetailsService userDetailsService) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+    }
+
 
     public String findLoggedInDni() {
         Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
@@ -51,7 +56,7 @@ public class SecurityService {
 
         if (aToken.isAuthenticated()) {
             SecurityContextHolder.getContext().setAuthentication(aToken);
-            logger.debug(String.format("Usuario( %s ) logueado correctamente!", username));
+            logger.debug("Usuario( {} ) logueado correctamente!", username);
         }
     }
     

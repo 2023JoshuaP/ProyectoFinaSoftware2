@@ -3,48 +3,49 @@ package com.social.servicios;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.Arrays;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.social.entidades.Comentario;
 import com.social.entidades.Publicacion;
 import com.social.entidades.Usuario;
 
 @Service
 public class InsertSampleDataService {
 
-	@Autowired
 	private UsuarioService usuariosService;
-	
-	@Autowired
-	private RolesService rolesService;
 
+	private RolesService rolesService;
+	@Autowired
+	public InsertSampleDataService(UsuarioService usuariosService, RolesService rolesService) {
+		this.usuariosService = usuariosService;
+		this.rolesService = rolesService;
+	}
 	@PostConstruct
 	public void init() 
 	{
 		Usuario usuario1 = new Usuario("pedro", "Pedro", "Diaz");
-		usuario1.setPassword("123456");
+		usuario1.setPassword("1234567");
 		usuario1.setRole(rolesService.getRoles()[0]);
 		Usuario usuario2 = new Usuario("lucas", "Lucas", "Nuñez");
-		usuario2.setPassword("123456");
+		usuario2.setPassword("1234568");
 		usuario2.setRole(rolesService.getRoles()[0]);
 		Usuario usuario3 = new Usuario("maria", "Maria", "Rodriguez");
-		usuario3.setPassword("123456");
+		usuario3.setPassword("1234569");
 		usuario3.setRole(rolesService.getRoles()[0]);
 		Usuario usuario4 = new Usuario("marta", "Marta", "Almonte");
-		usuario4.setPassword("123456");
+		usuario4.setPassword("1234561");
 		usuario4.setRole(rolesService.getRoles()[0]);
 		Usuario usuario5 = new Usuario("pelayo", "Pelayo", "Valdes");
-		usuario5.setPassword("123456");
+		usuario5.setPassword("1234564");
 		usuario5.setRole(rolesService.getRoles()[0]);
 		Usuario usuario6 = new Usuario("edward", "Edward", "Nuñez");
-		usuario6.setPassword("123456");
+		usuario6.setPassword("1234567");
 		usuario6.setRole(rolesService.getRoles()[1]);
 		
-		Set<Publicacion> post2 = new HashSet<Publicacion>();
+		Set<Publicacion> post2 = new HashSet<>();
 		post2.add(new Publicacion(usuario2,new Date(),"El sol brilla mucho",
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
 						"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" + 
@@ -53,7 +54,7 @@ public class InsertSampleDataService {
 						"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
 						"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
 						"officia deserunt mollit anim id est laborum.",
-						null,new HashSet<Comentario>(),new HashSet<Usuario>()));
+				null, new HashSet<>(), new HashSet<>()));
 		
 		post2.add(new Publicacion(usuario2,new Date(),"Nos merecemos un 10",
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
@@ -63,7 +64,7 @@ public class InsertSampleDataService {
 						"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
 						"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
 						"officia deserunt mollit anim id est laborum.",
-						null,new HashSet<Comentario>(),new HashSet<Usuario>()));
+				null, new HashSet<>(), new HashSet<>()));
 		
 		post2.add(new Publicacion(usuario2,new Date(),"Usando bootstrap",
 				"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
@@ -73,52 +74,46 @@ public class InsertSampleDataService {
 						"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
 						"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
 						"officia deserunt mollit anim id est laborum.",
-						null,new HashSet<Comentario>(),new HashSet<Usuario>()));
+				null, new HashSet<>(), new HashSet<>()));
 		
 		usuario2.setPost(post2);
-		
-		usuario3.setPost(new HashSet<Publicacion>() {
-			{
-				add(new Publicacion(usuario3,new Date(),"Publicacion de prueba",
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
-								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" + 
-								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" + 
-								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" + 
-								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
-								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
+
+		usuario3.setPost(new HashSet<>(Arrays.asList(
+				new Publicacion(usuario3, new Date(), "Publicacion de prueba",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" +
+								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" +
+								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" +
+								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" +
+								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" +
+								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" +
 								"officia deserunt mollit anim id est laborum.",
-								null,new HashSet<Comentario>(),new HashSet<Usuario>()));
-			}
-		});
-		
-		
-		usuario1.setPost(new HashSet<Publicacion>() {
-			{
-				add(new Publicacion(usuario1,new Date(),"Hoy no quiero programar",
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
-								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" + 
-								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" + 
-								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" + 
-								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
-								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
+						null, new HashSet<>(), new HashSet<>())
+		)));
+
+
+		usuario1.setPost(new HashSet<>(Arrays.asList(
+				new Publicacion(usuario1, new Date(), "Hoy no quiero programar",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" +
+								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" +
+								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" +
+								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" +
+								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" +
+								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" +
 								"officia deserunt mollit anim id est laborum.",
-								null,new HashSet<Comentario>(),new HashSet<Usuario>()));
-			}
-		});
-		
-		usuario4.setPost(new HashSet<Publicacion>() {
-			{
-				add(new Publicacion(usuario4,new Date(),"Drop tables",
-						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" + 
-								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" + 
-								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" + 
-								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" + 
-								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" + 
-								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" + 
+						null, new HashSet<>(), new HashSet<>())
+		)));
+
+		usuario4.setPost(new HashSet<>(Arrays.asList(
+				new Publicacion(usuario4, new Date(), "Drop tables",
+						"Lorem ipsum dolor sit amet, consectetur adipisicing elit,\r\n" +
+								"sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\r\n" +
+								"Ut enim ad minim veniam, quis tion ullamco laboris nisi ut aliquip\r\n" +
+								"ex ea commodo consequat. Duis aute irure dolor in reprehenderit in\r\n" +
+								"voluptate velit esse cillum dolore eu fugiat nulla pariatur.\r\n" +
+								"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui\r\n" +
 								"officia deserunt mollit anim id est laborum.",
-								null,new HashSet<Comentario>(),new HashSet<Usuario>()));
-			}
-		});
+						null, new HashSet<>(), new HashSet<>())
+		)));
 		
 		usuario1.setFoto_desc("https://ih0.redbubble.net/cover.104630.2400x600.jpg");
 		
