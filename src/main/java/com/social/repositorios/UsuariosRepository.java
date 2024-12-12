@@ -31,6 +31,6 @@ public interface UsuariosRepository extends CrudRepository<Usuario, Long>{
 	Page<Usuario> findAll(Pageable pageable);
 	
 	@Query("SELECT a.usuario2 FROM Amistad a WHERE a.usuario1 = ?1")
-	List<Long> findPeticionesEnviadas(long id_usuario);
+	List<Long> findPeticionesEnviadas(long idUsuario);
 	
 }
